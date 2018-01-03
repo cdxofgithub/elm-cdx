@@ -46,6 +46,7 @@
     "scss": "^0.2.4",
     "scss-loader": "0.0.1",
     "rimraf": "^2.6.0",
+    "style-loader": "^0.13.1",
     "url-loader": "^0.5.8",
     "vue-loader": "^13.3.0",
     "vue-style-loader": "^3.0.1",

@@ -27,9 +27,7 @@
 export default {
   data() {
     return {
-      userInfo: false,
-      goBack: false,
-      headTitle: ''
+      userInfo: false
     }
   },
   props: ['signinUp', 'headTitle', 'goBack'],
