@@ -1,6 +1,6 @@
 <template>
   <div class="city_container">
-    <head-top :head-title="cityname" :go-back='true'>
+    <head-top :head-title="cityname" go-back='true'>
       <router-link to="/home" slot="changecity" class="change_city">切换城市</router-link>
     </head-top>
     <form class="city_form" v-on:submit.prevent>
@@ -25,7 +25,8 @@
 
 <script>
 import headTop from "../../components/header/head";
-import {currentcity} from '../../service/getData'
+import { currentcity, searchplace } from "../../service/getData";
+import { getStore, setStore, removeStore } from "../../config/mUtils";
 export default {
   data() {
     return {
@@ -40,23 +41,76 @@ export default {
   },
   mounted() {
     //获取当前城市名字
-    this.getCurrCityName()
-    console.log('刷新了')
+    this.getCurrCityName();
+    this.initData();
   },
   components: {
     headTop
   },
   methods: {
+    //获取搜索历史
+    initData() {
+      this.inputVaule = ''
+      //获取搜索历史记录
+      if (getStore("placeHistory")) {
+        this.placelist = JSON.parse(getStore("placeHistory"));
+      } else {
+        this.placelist = [];
+      }
+    },
+    //获取当前城市名称
     getCurrCityName() {
       this.cityid = this.$route.params.cityid;
-      console.log(this.cityid)
       currentcity(this.cityid).then(res => {
-        console.log(res)
         this.cityname = res.name;
-      })
+      });
     },
+    //获取搜索列表
     postpois() {
-
+      if (this.inputVaule) {
+        searchplace(this.cityid, this.inputVaule).then(res => {
+          console.log(res);
+          this.historytitle = false;
+          this.placelist = res;
+          this.placeNone = res.length ? false : true;
+        });
+      }
+    },
+    //进入到商品列表
+    nextpage(index, geohash) {
+      let history = getStore("placeHistory");
+      let choosePlace = this.placelist[index];
+      if (history) {
+        let checkrepeat = false;
+        this.placeHistory = JSON.parse(history);
+        this.placeHistory.forEach(item => {
+          if (item.geohash == geohash) {
+            checkrepeat = true;
+          }
+        });
+        if (!checkrepeat) {
+          this.placeHistory.push(choosePlace);
+        }
+      } else {
+        this.placeHistory.push(choosePlace);
+      }
+      setStore("placeHistory", this.placeHistory);
+      this.$router.push({
+        path: "/msite",
+        query: {
+          geohash
+        }
+      });
+    },
+    //清楚搜索历史
+    clearAll() {
+      removeStore("placeHistory");
+      this.initData();
+    }
+  },
+  watch: {
+    inputVaule: function() {
+      this.postpois();
     }
   }
 };
@@ -67,13 +121,11 @@ export default {
 .city_container {
   padding-top: 2.35rem;
 }
-
 .change_city {
   right: 0.4rem;
   @include sc(0.6rem, #fff);
   @include ct;
 }
-
 .city_form {
   background-color: #fff;
   border-top: 1px solid $bc;
@@ -99,14 +151,12 @@ export default {
     }
   }
 }
-
 .pois_search_history {
   border-top: 1px solid $bc;
   border-bottom: 1px solid $bc;
   padding-left: 0.5rem;
   @include font(0.475rem, 0.8rem);
 }
-
 .getpois_ul {
   background-color: #fff;
   border-top: 1px solid $bc;
@@ -126,7 +176,6 @@ export default {
     }
   }
 }
-
 .search_none_place {
   margin: 0 auto;
   @include font(0.65rem, 1.75rem);
@@ -134,7 +183,6 @@ export default {
   background-color: #fff;
   text-indent: 0.5rem;
 }
-
 .clear_all_history {
   @include sc(0.7rem, #666);
   text-align: center;
