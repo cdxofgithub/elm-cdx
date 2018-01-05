@@ -3,6 +3,7 @@
 import Vue from 'vue'
 import routes from './router'
 import VueRouter from 'vue-router'
+import store from './store/'
 import {routerMode} from './config/env'
 import './config/rem'
 import FastClick from 'fastclick'
@@ -38,5 +39,6 @@ const router = new VueRouter({
 
 /* eslint-disable no-new */
 new Vue({
-  router
+  router,
+  store
 }).$mount('#app')

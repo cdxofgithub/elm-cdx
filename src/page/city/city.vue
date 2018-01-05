@@ -69,7 +69,6 @@ export default {
     postpois() {
       if (this.inputVaule) {
         searchplace(this.cityid, this.inputVaule).then(res => {
-          console.log(res);
           this.historytitle = false;
           this.placelist = res;
           this.placeNone = res.length ? false : true;

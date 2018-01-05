@@ -15,89 +15,119 @@
 </template>
 
 <script>
-  import headTop from "../../components/header/head";
+import { mapMutations } from "vuex";
+import headTop from "../../components/header/head";
+import { msiteAdress, cityGuess } from "../../service/getData";
 export default {
+  data() {
+    return {
+      geohash: "", // city页面传递过来的地址geohash
+      msietTitle: "请选择地址..." // msiet页面头部标题
+    };
+  },
   components: {
     headTop
+  },
+  async beforeMount() {
+    if (!this.$route.query.geohash) {
+      const address = await cityGuess();
+      this.geohash = address.latitude + "," + address.longitude;
+    } else {
+      this.geohash = this.$route.query.geohash;
+    }
+    //保存geohash 到vuex
+    this.SAVE_GEOHASH(this.geohash)
+    //获取位置信息
+    let res = await msiteAdress(this.geohash)
+    this.msietTitle = res.name
+  },
+  mounted () {
+   
+  }, 
+  created () {
+  },
+  methods: {
+    ...mapMutations([
+      "SAVE_GEOHASH"
+    ])
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>
-  @import "src/style/mixin";
-  .link_search {
-    left: 0.8rem;
-    @include wh(0.9rem, 0.9rem);
-    @include ct;
-  }
+@import "src/style/mixin";
+.link_search {
+  left: 0.8rem;
+  @include wh(0.9rem, 0.9rem);
+  @include ct;
+}
 
-  .msite_title {
-    @include center;
-    width: 50%;
-    color: #fff;
+.msite_title {
+  @include center;
+  width: 50%;
+  color: #fff;
+  text-align: center;
+  margin-left: -0.5rem;
+  .title_text {
+    @include sc(0.8rem, #fff);
     text-align: center;
-    margin-left: -0.5rem;
-    .title_text {
-      @include sc(0.8rem, #fff);
-      text-align: center;
-      display: block;
+    display: block;
+  }
+}
+
+.msite_nav {
+  padding-top: 2.1rem;
+  background-color: #fff;
+  border-bottom: 0.025rem solid $bc;
+  height: 10.6rem;
+  .swiper-container {
+    @include wh(100%, auto);
+    padding-bottom: 0.6rem;
+    .swiper-pagination {
+      bottom: 0.2rem;
     }
   }
+  .fl_back {
+    @include wh(100%, 100%);
+  }
+}
 
-  .msite_nav {
-    padding-top: 2.1rem;
-    background-color: #fff;
-    border-bottom: 0.025rem solid $bc;
-    height: 10.6rem;
-    .swiper-container {
-      @include wh(100%, auto);
-      padding-bottom: 0.6rem;
-      .swiper-pagination {
-        bottom: 0.2rem;
+.food_types_container {
+  display: flex;
+  flex-wrap: wrap;
+  .link_to_food {
+    width: 25%;
+    padding: 0.3rem 0rem;
+    @include fj(center);
+    figure {
+      img {
+        margin-bottom: 0.3rem;
+        @include wh(1.8rem, 1.8rem);
       }
-    }
-    .fl_back {
-      @include wh(100%, 100%);
-    }
-  }
-
-  .food_types_container {
-    display: flex;
-    flex-wrap: wrap;
-    .link_to_food {
-      width: 25%;
-      padding: 0.3rem 0rem;
-      @include fj(center);
-      figure {
-        img {
-          margin-bottom: 0.3rem;
-          @include wh(1.8rem, 1.8rem);
-        }
-        figcaption {
-          text-align: center;
-          @include sc(0.55rem, #666);
-        }
+      figcaption {
+        text-align: center;
+        @include sc(0.55rem, #666);
       }
     }
   }
+}
 
-  .shop_list_container {
-    margin-top: 0.4rem;
-    border-top: 0.025rem solid $bc;
-    background-color: #fff;
-    .shop_header {
-      .shop_icon {
-        fill: #999;
-        margin-left: 0.6rem;
-        vertical-align: middle;
-        @include wh(0.6rem, 0.6rem);
-      }
-      .shop_header_title {
-        color: #999;
-        @include font(0.55rem, 1.6rem);
-      }
+.shop_list_container {
+  margin-top: 0.4rem;
+  border-top: 0.025rem solid $bc;
+  background-color: #fff;
+  .shop_header {
+    .shop_icon {
+      fill: #999;
+      margin-left: 0.6rem;
+      vertical-align: middle;
+      @include wh(0.6rem, 0.6rem);
+    }
+    .shop_header_title {
+      color: #999;
+      @include font(0.55rem, 1.6rem);
     }
   }
-
+}
 </style>
 

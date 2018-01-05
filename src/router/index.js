@@ -6,6 +6,7 @@ import App from '../App'
 const home = r => require.ensure([], () => r(require('../page/home/home')), 'home')
 const city = r => require.ensure([], () => r(require('../page/city/city')), 'city')
 const msite = r => require.ensure([], () => r(require('../page/msite/msite')), 'msite')
+const search = r => require.ensure([], () => r(require('../page/search/search')), 'search')
 
 Vue.use(Router)
 
@@ -31,6 +32,11 @@ export default [{
         path: '/msite',
         component: msite,
         meta: { keepAlive: true },
+    },
+    //搜索页
+    {
+      path: '/search/:geohash',
+      component: search
     }
   ]
 }]
