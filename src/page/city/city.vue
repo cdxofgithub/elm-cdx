@@ -101,7 +101,7 @@ export default {
         }
       });
     },
-    //清楚搜索历史
+    //清除搜索历史
     clearAll() {
       removeStore("placeHistory");
       this.initData();

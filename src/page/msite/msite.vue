@@ -1,10 +1,11 @@
+<!--suppress ALL -->
 <template>
   <div>
     <head-top signin-up='msite'>
       <router-link :to="'/search/geohash'" class="link_search" slot="search">
         <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" version="1.1">
-          <circle cx="8" cy="8" r="7" stroke="rgb(255,255,255)" stroke-width="1" fill="none" />
-          <line x1="14" y1="14" x2="20" y2="20" style="stroke:rgb(255,255,255);stroke-width:2" />
+          <circle cx="8" cy="8" r="7" stroke="rgb(255,255,255)" stroke-width="1" fill="none" ></circle>
+          <line x1="14" y1="14" x2="20" y2="20" style="stroke:rgb(255,255,255);stroke-width:2" ></line>
         </svg>
       </router-link>
       <router-link to="/home" slot="msite-title" class="msite_title">
@@ -39,23 +40,27 @@ export default {
     this.SAVE_GEOHASH(this.geohash)
     //获取位置信息
     let res = await msiteAdress(this.geohash)
+    console.log(res)
     this.msietTitle = res.name
+    //记录当前经纬度
+    this.RECORD_ADDRESS(RES)
   },
   mounted () {
-   
-  }, 
+
+  },
   created () {
   },
   methods: {
     ...mapMutations([
-      "SAVE_GEOHASH"
+      "SAVE_GEOHASH",
+      "RECORD_ADDRESS"
     ])
   }
 };
 </script>
 
 <style lang="scss" scoped>
-@import "src/style/mixin";
+  @import "../../style/mixin";
 .link_search {
   left: 0.8rem;
   @include wh(0.9rem, 0.9rem);

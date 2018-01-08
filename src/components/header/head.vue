@@ -18,7 +18,7 @@
     </section>
     <slot name="edit"></slot>
     <slot name="msite-title"></slot>
-    <slot name="changecity"></slot>
+    <slot name="changeCity"></slot>
     <slot name="changeLogin"></slot>
   </header>
 </template>
@@ -54,7 +54,7 @@ export default {
 .head_login {
   right: 0.55rem;
   @include sc(0.65rem, #fff);
-  @include ct;       
+  @include ct;
   .login_span {
     color: #fff;
   }

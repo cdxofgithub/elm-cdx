@@ -1,3 +1,5 @@
+<!--suppress ALL -->
+
 <template>
   <div>
     <headTop signin-up="home">
