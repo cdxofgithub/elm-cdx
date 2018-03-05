@@ -105,11 +105,18 @@
         showBack(status => {
           this.showBackStatus = status
         })
-
       },
+
+      //到达底部加载更多数据
+      async loaderMore() {
+        if (this.touchend) {
+          return
+        }
+      },
+
       //返回顶部
       backTop() {
-        animate(document.body, {scrollTop: '0'}, 400,'ease-out');
+        animate(document.documentElement, {scrollTop: '0'}, 400,'ease-out');
       },
 
       //开发环境与编译环境loading隐藏方式不同
