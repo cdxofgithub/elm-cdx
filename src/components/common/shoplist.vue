@@ -69,7 +69,7 @@
   import loading from './loading'
   import {showBack, animate} from '../../config/mUtils'
   import {imgBaseUrl} from "../../config/env";
-  import {loaderMore} from './mixin'
+  import {loadMore} from './mixin'
   import ratingStar from './ratingStar'
 
   export default {
@@ -78,16 +78,23 @@
       return {
         offset: 0,   // 批次加载店铺列表，每次加载20个 limit = 20
         shopListArr:[], // 店铺列表数据
+        preventRepeatReuqest: false, //到达底部加载数据，防止重复加载
         touchend: false, //没有更多数据
         showLoading: true, //显示加载动画
         showBackStatus: false, //显示返回顶部按钮
         imgBaseUrl,
       }
     },
+    created() {
+      window.scroll(function () {
+        
+      })
+    },
     props: [
       'restaurantCategoryId',
       'geohash'
     ],
+    mixins: [loadMore],
     mounted() {
       this.initData()
     },
@@ -105,6 +112,7 @@
         showBack(status => {
           this.showBackStatus = status
         })
+        this.preventRepeatReuqest = false
       },
 
       //到达底部加载更多数据
@@ -112,6 +120,23 @@
         if (this.touchend) {
           return
         }
+        //防止重复请求
+        if (this.preventRepeatReuqest) {
+          return
+        }
+        this.showLoading = true
+        this.preventRepeatReuqest = true
+
+        //数据的定位加20位
+        this.offset += 20;
+        let res = await shopList(this.latitude, this.longitude, this.offset, this.restaurantCategoryId);
+        this.hideLoading();
+        //当获取数据小于20，说明没有更多数据，不需要再次请求数据
+        if (res.length < 20) {
+          this.touchend = true;
+          return
+        }
+        this.preventRepeatReuqest = false;
       },
 
       //返回顶部
