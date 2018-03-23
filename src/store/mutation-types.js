@@ -1,2 +1,3 @@
 export const SAVE_GEOHASH = 'SAVE_GEOHASH'
 export const RECORD_ADDRESS = 'RECORD_ADDRESS'
+export const INIT_BUYCART = 'INIT_BUYCART'

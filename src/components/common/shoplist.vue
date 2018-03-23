@@ -34,9 +34,9 @@
               {{item.piecewise_agent_fee.tips}}
             </p>
             <p class="distance_time">
-    <span v-if="Number(item.distance)">{{item.distance > 1000? (item.distance/1000).toFixed(2) + 'km': item.distance + 'm'}}
-    <span class="segmentation">/</span>
-    </span>
+              <span v-if="Number(item.distance)">{{item.distance > 1000? (item.distance/1000).toFixed(2) + 'km': item.distance + 'm'}}
+              <span class="segmentation">/</span>
+              </span>
               <span v-else>{{item.distance}}</span>
               <span class="segmentation">/</span>
               <span class="order_time">{{item.order_lead_time}}</span>
@@ -63,6 +63,7 @@
   </div>
 </template>
 
+
 <script>
   import {shopList} from '../../service/getData'
   import {mapState} from 'vuex'
@@ -77,7 +78,7 @@
     data() {
       return {
         offset: 0,   // 批次加载店铺列表，每次加载20个 limit = 20
-        shopListArr:[], // 店铺列表数据
+        shopListArr: [], // 店铺列表数据
         preventRepeatReuqest: false, //到达底部加载数据，防止重复加载
         touchend: false, //没有更多数据
         showLoading: true, //显示加载动画
@@ -87,7 +88,7 @@
     },
     created() {
       window.scroll(function () {
-        
+
       })
     },
     props: [
@@ -141,7 +142,7 @@
 
       //返回顶部
       backTop() {
-        animate(document.documentElement, {scrollTop: '0'}, 400,'ease-out');
+        animate(document.documentElement, {scrollTop: '0'}, 400, 'ease-out');
       },
 
       //开发环境与编译环境loading隐藏方式不同
@@ -154,8 +155,19 @@
 
       },
       zhunshi(supports) {
-
-      }
+        console.log(supports)
+        let zhunStatus
+        if ((supports instanceof Array) && supports.length) {
+          supports.forEach(item => {
+            if (item.icon_name == '准') {
+              zhunStatus = true
+            }
+          })
+        } else {
+          zhunStatus = false;
+        }
+        return zhunStatus
+      },
     },
     computed: {
       ...mapState([
