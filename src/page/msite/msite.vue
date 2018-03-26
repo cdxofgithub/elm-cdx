@@ -82,7 +82,6 @@
     mounted() {
       //获取导航食品类型列表
       msiteFoodTypes(this.geohash).then(res => {
-        console.log(res)
         let resLength = res.length
         let resArr = [...res]
         let foodArr = []

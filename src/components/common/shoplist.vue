@@ -103,7 +103,6 @@
       async initData() {
         //获取数据
         let res = await shopList(this.latitude, this.longitude, this.offset, this.restaurantCategoryId)
-        console.log(res)
         this.shopListArr = [...res];
         if (res.length < 20) {
           this.touchend = true;
@@ -155,7 +154,6 @@
 
       },
       zhunshi(supports) {
-        console.log(supports)
         let zhunStatus
         if ((supports instanceof Array) && supports.length) {
           supports.forEach(item => {

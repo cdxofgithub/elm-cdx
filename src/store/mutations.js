@@ -2,6 +2,7 @@ import {
   SAVE_GEOHASH,
   RECORD_ADDRESS,
   INIT_BUYCART,
+  RECORD_SHOPDETAIL,
 } from './mutation-types'
 
 import {setStore, getStore} from "../config/mUtils";
@@ -23,5 +24,8 @@ export default {
     if (initCart) {
       state.cartList = JSON.parse(initCart);
     }
+  },
+  [RECORD_SHOPDETAIL](state, detail) {
+    state.shopDetail = detail;
   },
 }
