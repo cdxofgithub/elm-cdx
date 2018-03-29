@@ -65,144 +65,146 @@
           </svg>
         </section>
       </transition>
-      <!--<section class="change_show_type" ref="chooseType">-->
-        <!--<div>-->
-          <!--<span :class='{activity_show: changeShowType =="food"}' @click="changeShowType='food'">商品</span>-->
-        <!--</div>-->
-        <!--<div>-->
-          <!--<span :class='{activity_show: changeShowType =="rating"}' @click="changeShowType='rating'">评价</span>-->
-        <!--</div>-->
-      <!--</section>-->
-      <!--<transition name="fade-choose">-->
-        <!--<section v-show="changeShowType =='food'" class="food_container">-->
-          <!--<section class="menu_container">-->
-            <!--<section class="menu_left" id="wrapper_menu" ref="wrapperMenu">-->
-              <!--<ul>-->
-                <!--<li v-for="(item,index) in menuList" :key="index" class="menu_left_li" :class="{activity_menu: index == menuIndex}" @click="chooseMenu(index)">-->
-                  <!--<img :src="getImgPath(item.icon_url)" v-if="item.icon_url">-->
-                  <!--<span>{{item.name}}</span>-->
-                  <!--<span class="category_num" v-if="categoryNum[index]&&item.type==1">{{categoryNum[index]}}</span>-->
-                <!--</li>-->
-              <!--</ul>-->
-            <!--</section>-->
-            <!--<section class="menu_right" ref="menuFoodList">-->
-              <!--<ul>-->
-                <!--<li v-for="(item,index) in menuList" :key="index">-->
-                  <!--<header class="menu_detail_header">-->
-                    <!--<section class="menu_detail_header_left">-->
-                      <!--<strong class="menu_item_title">{{item.name}}</strong>-->
-                      <!--<span class="menu_item_description">{{item.description}}</span>-->
-                    <!--</section>-->
-                    <!--<span class="menu_detail_header_right" @click="showTitleDetail(index)"></span>-->
-                    <!--<p class="description_tip" v-if="index == TitleDetailIndex">-->
-                      <!--<span>{{item.name}}</span>-->
-                      <!--{{item.description}}-->
-                    <!--</p>-->
-                  <!--</header>-->
-                  <!--<section v-for="(foods,foodindex) in item.foods" :key="foodindex" class="menu_detail_list">-->
-                    <!--<router-link :to="{path: 'shop/foodDetail', query:{image_path:foods.image_path, description: foods.description, month_sales: foods.month_sales, name: foods.name, rating: foods.rating, rating_count: foods.rating_count, satisfy_rate: foods.satisfy_rate, foods, shopId}}"-->
-                                 <!--tag="div" class="menu_detail_link">-->
-                      <!--<section class="menu_food_img">-->
-                        <!--<img :src="imgBaseUrl + foods.image_path">-->
-                      <!--</section>-->
-                      <!--<section class="menu_food_description">-->
-                        <!--<h3 class="food_description_head">-->
-                          <!--<strong class="description_foodname">{{foods.name}}</strong>-->
-                          <!--<ul v-if="foods.attributes.length" class="attributes_ul">-->
-                            <!--<li v-for="(attribute, foodindex) in foods.attributes" :key="foodindex" :style="{color: '#' + attribute.icon_color,borderColor:'#' +attribute.icon_color}"-->
-                                <!--:class="{attribute_new: attribute.icon_name == '新'}">-->
-                              <!--<p :style="{color: attribute.icon_name == '新'? '#fff' : '#' + attribute.icon_color}">{{attribute.icon_name == '新'? '新品':attribute.icon_name}}</p>-->
-                            <!--</li>-->
-                          <!--</ul>-->
 
-                        <!--</h3>-->
-                        <!--<p class="food_description_content">{{foods.description}}</p>-->
-                        <!--<p class="food_description_sale_rating">-->
-                          <!--<span>月售{{foods.month_sales}}份</span>-->
-                          <!--<span>好评率{{foods.satisfy_rate}}%</span>-->
-                        <!--</p>-->
-                        <!--<p v-if="foods.activity" class="food_activity">-->
-                          <!--<span :style="{color: '#' + foods.activity.image_text_color,borderColor:'#' +foods.activity.icon_color}">{{foods.activity.image_text}}</span>-->
-                        <!--</p>-->
-                      <!--</section>-->
-                    <!--</router-link>-->
-                    <!--<footer class="menu_detail_footer">-->
-                      <!--<section class="food_price">-->
-                        <!--<span>¥</span>-->
-                        <!--<span>{{foods.specfoods[0].price}}</span>-->
-                        <!--<span v-if="foods.specifications.length">起</span>-->
-                      <!--</section>-->
-                      <!--<buy-cart :shopId='shopId' :foods='foods' @moveInCart="listenInCart" @showChooseList="showChooseList" @showReduceTip="showReduceTip"-->
-                                <!--@showMoveDot="showMoveDotFun"></buy-cart>-->
-                    <!--</footer>-->
-                  <!--</section>-->
-                <!--</li>-->
-              <!--</ul>-->
-            <!--</section>-->
-          <!--</section>-->
+
+      <section class="change_show_type" ref="chooseType">
+        <div>
+          <span :class='{activity_show: changeShowType =="food"}' @click="changeShowType='food'">商品</span>
+        </div>
+        <div>
+          <span :class='{activity_show: changeShowType =="rating"}' @click="changeShowType='rating'">评价</span>
+        </div>
+      </section>
+      <transition name="fade-choose">
+        <section v-show="changeShowType =='food'" class="food_container">
+          <section class="menu_container">
+            <section class="menu_left" id="wrapper_menu" ref="wrapperMenu">
+              <ul>
+                <li v-for="(item,index) in menuList" :key="index" class="menu_left_li" :class="{activity_menu: index == menuIndex}" @click="chooseMenu(index)">
+                  <img :src="getImgPath(item.icon_url)" v-if="item.icon_url">
+                  <span>{{item.name}}</span>
+                  <span class="category_num" v-if="categoryNum[index]&&item.type==1">{{categoryNum[index]}}</span>
+                </li>
+              </ul>
+            </section>
+            <section class="menu_right" ref="menuFoodList">
+              <ul>
+                <li v-for="(item,index) in menuList" :key="index">
+                  <header class="menu_detail_header">
+                    <section class="menu_detail_header_left">
+                      <strong class="menu_item_title">{{item.name}}</strong>
+                      <span class="menu_item_description">{{item.description}}</span>
+                    </section>
+                    <span class="menu_detail_header_right" @click="showTitleDetail(index)"></span>
+                    <p class="description_tip" v-if="index == TitleDetailIndex">
+                      <span>{{item.name}}</span>
+                      {{item.description}}
+                    </p>
+                  </header>
+                  <section v-for="(foods,foodindex) in item.foods" :key="foodindex" class="menu_detail_list">
+                    <router-link :to="{path: 'shop/foodDetail', query:{image_path:foods.image_path, description: foods.description, month_sales: foods.month_sales, name: foods.name, rating: foods.rating, rating_count: foods.rating_count, satisfy_rate: foods.satisfy_rate, foods, shopId}}"
+                                 tag="div" class="menu_detail_link">
+                      <section class="menu_food_img">
+                        <img :src="imgBaseUrl + foods.image_path">
+                      </section>
+                      <section class="menu_food_description">
+                        <h3 class="food_description_head">
+                          <strong class="description_foodname">{{foods.name}}</strong>
+                          <ul v-if="foods.attributes.length" class="attributes_ul">
+                            <li v-for="(attribute, foodindex) in foods.attributes" :key="foodindex" :style="{color: '#' + attribute.icon_color,borderColor:'#' +attribute.icon_color}"
+                                :class="{attribute_new: attribute.icon_name == '新'}">
+                              <p :style="{color: attribute.icon_name == '新'? '#fff' : '#' + attribute.icon_color}">{{attribute.icon_name == '新'? '新品':attribute.icon_name}}</p>
+                            </li>
+                          </ul>
+
+                        </h3>
+                        <p class="food_description_content">{{foods.description}}</p>
+                        <p class="food_description_sale_rating">
+                          <span>月售{{foods.month_sales}}份</span>
+                          <span>好评率{{foods.satisfy_rate}}%</span>
+                        </p>
+                        <p v-if="foods.activity" class="food_activity">
+                          <span :style="{color: '#' + foods.activity.image_text_color,borderColor:'#' +foods.activity.icon_color}">{{foods.activity.image_text}}</span>
+                        </p>
+                      </section>
+                    </router-link>
+                    <footer class="menu_detail_footer">
+                      <section class="food_price">
+                        <span>¥</span>
+                        <span>{{foods.specfoods[0].price}}</span>
+                        <span v-if="foods.specifications.length">起</span>
+                      </section>
+                      <buy-cart :shopId='shopId' :foods='foods' @moveInCart="listenInCart" @showChooseList="showChooseList" @showReduceTip="showReduceTip"
+                                @showMoveDot="showMoveDotFun"></buy-cart>
+                    </footer>
+                  </section>
+                </li>
+              </ul>
+            </section>
+          </section>
           <!--<section class="buy_cart_container">-->
-            <!--<section @click="toggleCartList" class="cart_icon_num">-->
-              <!--<div class="cart_icon_container" :class="{cart_icon_activity: totalPrice > 0, move_in_cart:receiveInCart}" ref="cartContainer">-->
-                <!--<span v-if="totalNum" class="cart_list_length">-->
-                  <!--{{totalNum}}-->
-                <!--</span>-->
-                <!--<svg class="cart_icon">-->
-                  <!--<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#cart-icon"></use>-->
-                <!--</svg>-->
-              <!--</div>-->
-              <!--<div class="cart_num">-->
-                <!--<div>¥ {{totalPrice}}</div>-->
-                <!--<div>配送费¥{{deliveryFee}}</div>-->
-              <!--</div>-->
-            <!--</section>-->
-            <!--<section class="gotopay" :class="{gotopay_acitvity: minimumOrderAmount <= 0}">-->
-              <!--<span class="gotopay_button_style" v-if="minimumOrderAmount > 0">还差¥{{minimumOrderAmount}}起送</span>-->
-              <!--<router-link :to="{path:'/confirmOrder', query:{geohash, shopId}}" class="gotopay_button_style" v-else>去结算</router-link>-->
-            <!--</section>-->
+          <!--<section @click="toggleCartList" class="cart_icon_num">-->
+          <!--<div class="cart_icon_container" :class="{cart_icon_activity: totalPrice > 0, move_in_cart:receiveInCart}" ref="cartContainer">-->
+          <!--<span v-if="totalNum" class="cart_list_length">-->
+          <!--{{totalNum}}-->
+          <!--</span>-->
+          <!--<svg class="cart_icon">-->
+          <!--<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#cart-icon"></use>-->
+          <!--</svg>-->
+          <!--</div>-->
+          <!--<div class="cart_num">-->
+          <!--<div>¥ {{totalPrice}}</div>-->
+          <!--<div>配送费¥{{deliveryFee}}</div>-->
+          <!--</div>-->
+          <!--</section>-->
+          <!--<section class="gotopay" :class="{gotopay_acitvity: minimumOrderAmount <= 0}">-->
+          <!--<span class="gotopay_button_style" v-if="minimumOrderAmount > 0">还差¥{{minimumOrderAmount}}起送</span>-->
+          <!--<router-link :to="{path:'/confirmOrder', query:{geohash, shopId}}" class="gotopay_button_style" v-else>去结算</router-link>-->
+          <!--</section>-->
           <!--</section>-->
           <!--<transition name="toggle-cart">-->
-            <!--<section class="cart_food_list" v-show="showCartList&&cartFoodList.length">-->
-              <!--<header>-->
-                <!--<h4>购物车</h4>-->
-                <!--<div @click="clearCart">-->
-                  <!--<svg>-->
-                    <!--<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#cart-remove"></use>-->
-                  <!--</svg>-->
-                  <!--<span class="clear_cart">清空</span>-->
-                <!--</div>-->
-              <!--</header>-->
-              <!--<section class="cart_food_details" id="cartFood">-->
-                <!--<ul>-->
-                  <!--<li v-for="(item, index) in cartFoodList" :key="index" class="cart_food_li">-->
-                    <!--<div class="cart_list_num">-->
-                      <!--<p class="ellipsis">{{item.name}}</p>-->
-                      <!--<p class="ellipsis">{{item.specs}}</p>-->
-                    <!--</div>-->
-                    <!--<div class="cart_list_price">-->
-                      <!--<span>¥</span>-->
-                      <!--<span>{{item.price}}</span>-->
-                    <!--</div>-->
-                    <!--<section class="cart_list_control">-->
-                      <!--<span @click="removeOutCart(item.category_id, item.item_id, item.food_id, item.name, item.price, item.specs)">-->
-                        <!--<svg>-->
-                          <!--<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#cart-minus"></use>-->
-                        <!--</svg>-->
-                      <!--</span>-->
-                      <!--<span class="cart_num">{{item.num}}</span>-->
-                      <!--<svg class="cart_add" @click="addToCart(item.category_id, item.item_id, item.food_id, item.name, item.price, item.specs)">-->
-                        <!--<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#cart-add"></use>-->
-                      <!--</svg>-->
-                    <!--</section>-->
-                  <!--</li>-->
-                <!--</ul>-->
-              <!--</section>-->
-            <!--</section>-->
+          <!--<section class="cart_food_list" v-show="showCartList&&cartFoodList.length">-->
+          <!--<header>-->
+          <!--<h4>购物车</h4>-->
+          <!--<div @click="clearCart">-->
+          <!--<svg>-->
+          <!--<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#cart-remove"></use>-->
+          <!--</svg>-->
+          <!--<span class="clear_cart">清空</span>-->
+          <!--</div>-->
+          <!--</header>-->
+          <!--<section class="cart_food_details" id="cartFood">-->
+          <!--<ul>-->
+          <!--<li v-for="(item, index) in cartFoodList" :key="index" class="cart_food_li">-->
+          <!--<div class="cart_list_num">-->
+          <!--<p class="ellipsis">{{item.name}}</p>-->
+          <!--<p class="ellipsis">{{item.specs}}</p>-->
+          <!--</div>-->
+          <!--<div class="cart_list_price">-->
+          <!--<span>¥</span>-->
+          <!--<span>{{item.price}}</span>-->
+          <!--</div>-->
+          <!--<section class="cart_list_control">-->
+          <!--<span @click="removeOutCart(item.category_id, item.item_id, item.food_id, item.name, item.price, item.specs)">-->
+          <!--<svg>-->
+          <!--<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#cart-minus"></use>-->
+          <!--</svg>-->
+          <!--</span>-->
+          <!--<span class="cart_num">{{item.num}}</span>-->
+          <!--<svg class="cart_add" @click="addToCart(item.category_id, item.item_id, item.food_id, item.name, item.price, item.specs)">-->
+          <!--<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#cart-add"></use>-->
+          <!--</svg>-->
+          <!--</section>-->
+          <!--</li>-->
+          <!--</ul>-->
+          <!--</section>-->
+          <!--</section>-->
           <!--</transition>-->
           <!--<transition name="fade">-->
-            <!--<div class="screen_cover" v-show="showCartList&&cartFoodList.length" @click="toggleCartList"></div>-->
+          <!--<div class="screen_cover" v-show="showCartList&&cartFoodList.length" @click="toggleCartList"></div>-->
           <!--</transition>-->
-        <!--</section>-->
-      <!--</transition>-->
+        </section>
+      </transition>
       <!--<transition name="fade-choose">-->
       <!--<section class="rating_container" id="ratingContainer" v-show="changeShowType =='rating'">-->
       <!--<section v-load-more="loaderMoreRating" type="2">-->
@@ -233,7 +235,8 @@
       <!--</header>-->
       <!--<ul class="tag_list_ul">-->
       <!--<li v-for="(item, index) in ratingTagsList" :key="index" :class="{unsatisfied: item.unsatisfied, tagActivity: ratingTageIndex == index}"-->
-      <!--@click="changeTgeIndex(index, item.name)">{{item.name}}({{item.count}})</li>-->
+      <!--@click="changeTgeIndex(index, item.name)">{{item.name}}({{item.count}})-->
+      <!--</li>-->
       <!--</ul>-->
       <!--<ul class="rating_list_ul">-->
       <!--<li v-for="(item, index) in ratingList" :key="index" class="rating_list_li">-->
@@ -293,6 +296,9 @@
     getImgPath
   } from "../../components/common/mixin"
   import loading from "../../components/common/loading"
+  import BScroll from "better-scroll"
+  import buyCart from "src/components/common/buyCart"
+  import ratingStar from "../../components/common/ratingStar"
 
   export default {
     name: "shop",
@@ -313,10 +319,14 @@
         menuIndex: 0, //已选菜单索引值，默认为0
         menuIndexChange: true, //解决选中index时，scroll监听事件重复判断设置index的bug
         categoryNum: [], //商品类型右上角已加入购物车的数量
+        shopListTop: [], //商品列表的高度集合
+        TitleDetailIndex: null, //点击展示列表头部详情
         imgBaseUrl
       }
     },
     created() {
+      console.log('进入了created')
+      console.log(this.$route)
       this.geohash = this.$route.query.geohash
       this.shopId = this.$route.query.id
       this.INIT_BUYCART()
@@ -325,7 +335,9 @@
       this.initData();
     },
     components: {
-      loading
+      loading,
+      ratingStar,
+      buyCart
     },
     mixins: [loadMore, getImgPath],
     computed: {
@@ -384,6 +396,54 @@
         //隐藏加载动画
         this.hideLoading();
       },
+      //获取食品列表的高度，存入shopListTop
+      getFoodListHeight() {
+        const listContainer = this.$refs.menuFoodList;
+        const listArr = Array.from(listContainer.children[0].children);
+        listArr.forEach((item, index) => {
+          this.shopListTop[index] = item.offsetTop;
+        });
+        this.listenScroll(listContainer);
+      },
+      //当滑动食品列表时，监听其scrollTop值来设置对应的食品列表标题的样式
+      listenScroll(element) {
+        this.foodScroll = new BScroll(element, {
+          probeType: 3,
+          deceleration: 0.001,
+          bounce: false,
+          swipeTime: 2000,
+          click: true
+        });
+
+        const wrapperMenu = new BScroll("#wrapper_menu", {
+          click: true
+        });
+        //
+        // const wrapMenuHeight = this.$refs.wrapperMenu.clientHeight;
+        // this.foodScroll.on("scroll", pos => {
+        //   if (!this.$refs.wrapperMenu) {
+        //     return;
+        //   }
+        //   this.shopListTop.forEach((item, index) => {
+        //     if (this.menuIndexChange && Math.abs(Math.round(pos.y)) >= item) {
+        //       this.menuIndex = index;
+        //       const menuList = this.$refs.wrapperMenu.querySelectorAll(
+        //         ".activity_menu"
+        //       );
+        //       const el = menuList[0];
+        //       wrapperMenu.scrollToElement(el, 800, 0, -(wrapMenuHeight / 2 - 50));
+        //     }
+        //   });
+        // });
+      },
+      showTitleDetail(index) {
+        console.log(index)
+        if (this.TitleDetailIndex == index) {
+          this.TitleDetailIndex = null;
+        } else {
+          this.TitleDetailIndex = index;
+        }
+      },
       goback() {
         this.$router.go(-1);
       },
@@ -399,8 +459,18 @@
       // changeShowType: function (value) {
       //
       // }
+    },
+    watch: {
+      //showLoading变化时说明组件已经获取初始化数据，在下一帧nextTick进行后续操作
+      showLoading: function (value) {
+        if (!value) {
+          this.$nextTick(() => {
+            this.getFoodListHeight();
+            // this.initCategoryNum();
+          });
+        }
+      },
     }
-
   }
 </script>
 
